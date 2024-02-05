@@ -9,6 +9,7 @@ var email = document.getElementById("email")
 
 var msg = document.getElementById("msg");
 
+var count =0
 
 form.addEventListener('submit',(e) => {
 
@@ -19,7 +20,7 @@ form.addEventListener('submit',(e) => {
 
 function validate(){
     
-    var count=0;
+    this.count=0;
 
     var nameval = ename.value.trim();
 
@@ -63,6 +64,7 @@ function validate(){
 
     if(count == 3 )
         list()
+        SubForm ()
 }
 
 function list(){
@@ -96,13 +98,15 @@ function ValidateEmail(email)
 
 // contas us in sheet refer link https://www.apispreadsheets.com/tutorials/save-web-form-data.html
 function SubForm (){
-    if(count == 3 ){
+    if(this.count == 3 ){
         $.ajax({
             url:'https://api.apispreadsheets.com/data/W93bAfOLvdtNKQm6/',
             type:'post',
             data:$("#form").serializeArray(),
             success: function(){
               alert("Form Data Submitted :)")
+              // Reset the form after successful submission
+              document.getElementById("form").reset();
             },
             error: function(){
               alert("There was an error :(")
